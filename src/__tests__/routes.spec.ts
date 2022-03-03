@@ -1,32 +1,32 @@
-import request from "supertest";
-import { v4 } from "uuid";
+import request from 'supertest';
+import { v4 } from 'uuid';
 
-import { app } from "../index";
-import { UsersRepository } from "../modules/users/repositories/implementations/UsersRepository";
+import { app } from '../index';
+import { UsersRepository } from '../modules/users/repositories/implementations/UsersRepository';
 
-describe("[POST] /users", () => {
-  it("should be able to create new users", async () => {
+describe('[POST] /users', () => {
+  it('should be able to create new users', async () => {
     const response = await request(app)
-      .post("/users")
+      .post('/users')
       .send({
-        name: "John Doe",
-        email: "john.doe@example.com",
+        name: 'John Doe',
+        email: 'john.doe@example.com',
       })
       .expect(201);
 
     expect(response.body).toMatchObject({
-      name: "John Doe",
-      email: "john.doe@example.com",
+      name: 'John Doe',
+      email: 'john.doe@example.com',
       admin: false,
     });
   });
 
-  it("should not be able to create new users when email is already taken", async () => {
+  it('should not be able to create new users when email is already taken', async () => {
     const response = await request(app)
-      .post("/users")
+      .post('/users')
       .send({
-        name: "John Doe",
-        email: "john.doe@example.com",
+        name: 'John Doe',
+        email: 'john.doe@example.com',
       })
       .expect(400);
 
@@ -34,8 +34,8 @@ describe("[POST] /users", () => {
   });
 });
 
-describe("[PATCH] /users/:user_id/admin", () => {
-  it("should be able to turn an user as admin", async () => {
+describe('[PATCH] /users/:user_id/admin', () => {
+  it('should be able to turn an user as admin', async () => {
     const usersRepository = UsersRepository.getInstance();
 
     const user = usersRepository.create({
@@ -52,7 +52,7 @@ describe("[PATCH] /users/:user_id/admin", () => {
     expect(response.body.admin).toBe(true);
   });
 
-  it("should not be able to turn a non existing user as admin", async () => {
+  it('should not be able to turn a non existing user as admin', async () => {
     const response = await request(app)
       .patch(`/users/${v4()}/admin`)
       .expect(404);
@@ -61,8 +61,8 @@ describe("[PATCH] /users/:user_id/admin", () => {
   });
 });
 
-describe("[GET] /users/:user_id", () => {
-  it("should be able to get user profile by ID", async () => {
+describe('[GET] /users/:user_id', () => {
+  it('should be able to get user profile by ID', async () => {
     const usersRepository = UsersRepository.getInstance();
 
     const user = usersRepository.create({
@@ -85,15 +85,15 @@ describe("[GET] /users/:user_id", () => {
     });
   });
 
-  it("should not be able to show profile of a non existing user", async () => {
+  it('should not be able to show profile of a non existing user', async () => {
     const response = await request(app).get(`/users/${v4()}`).expect(404);
 
     expect(response.body.error).toBeTruthy();
   });
 });
 
-describe("[GET] /users", () => {
-  it("should be able to list all users", async () => {
+describe('[GET] /users', () => {
+  it('should be able to list all users', async () => {
     const usersRepository = UsersRepository.getInstance();
 
     const user1 = usersRepository.create({
@@ -113,7 +113,7 @@ describe("[GET] /users", () => {
       email: String(Math.random()),
     });
 
-    const response = await request(app).get("/users").set("user_id", user1.id);
+    const response = await request(app).get('/users').set('user_id', user1.id);
 
     expect(
       response.body.map((res) => ({
@@ -130,7 +130,7 @@ describe("[GET] /users", () => {
     );
   });
 
-  it("should not be able to a non admin user get list of all users", async () => {
+  it('should not be able to a non admin user get list of all users', async () => {
     const usersRepository = UsersRepository.getInstance();
 
     const user = usersRepository.create({
@@ -139,14 +139,14 @@ describe("[GET] /users", () => {
     });
 
     const response = await request(app)
-      .get("/users")
-      .set("user_id", user.id)
+      .get('/users')
+      .set('user_id', user.id)
       .expect(400);
 
     expect(response.body.error).toBeTruthy();
   });
 
-  it("should not be able to a non admin user get list of all users", async () => {
+  it('should not be able to a non admin user get list of all users', async () => {
     const usersRepository = UsersRepository.getInstance();
 
     const user = usersRepository.create({
@@ -155,17 +155,17 @@ describe("[GET] /users", () => {
     });
 
     const response = await request(app)
-      .get("/users")
-      .set("user_id", user.id)
+      .get('/users')
+      .set('user_id', user.id)
       .expect(400);
 
     expect(response.body.error).toBeTruthy();
   });
 
-  it("should not be able to a non existing user get list of all users", async () => {
+  it('should not be able to a non existing user get list of all users', async () => {
     const response = await request(app)
-      .get("/users")
-      .set("user_id", v4())
+      .get('/users')
+      .set('user_id', v4())
       .expect(400);
 
     expect(response.body.error).toBeTruthy();
