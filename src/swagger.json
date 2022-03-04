@@ -1,0 +1,326 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ignite 5 Challange - Swagger Docs",
+    "description": "This is an API Doc",
+    "version": "1.0.0",
+    "contact": {
+      "email": "sinonsrt@hotmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get users",
+        "descripton": "Get users list",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": [
+                    {
+                      "admin": false,
+                      "id": "667cb965-f242-4ec7-ad65-0f6f831fbe91",
+                      "name": "Rocketseat",
+                      "email": "sinonsrt@hotmail.com",
+                      "created_at": "2022-03-03T23:07:32.9922",
+                      "updated_at": "2022-03-03T23:07:32.9922"
+                    },
+                    {
+                      "admin": false,
+                      "id": "667cb965-f242-4ec7-ad65-0f6f831fbe91",
+                      "name": "Rocketseat",
+                      "email": "sinonsrt@hotmail.com",
+                      "created_at": "2022-03-03T23:07:32.9922",
+                      "updated_at": "2022-03-03T23:07:32.9922"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "error": "string"
+                    },
+                    "example": {
+                      "error": "You need to be an administrator to list all"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["users"],
+        "summary": "Criar um novo usuário",
+        "descripton": "Criar um novo usuário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Rocketseat",
+                  "email": "sinonsrt@hotmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": false,
+                    "id": "667cb965-f242-4ec7-ad65-0f6f831fbe91",
+                    "name": "Rocketseat",
+                    "email": "sinonsrt@hotmail.com",
+                    "created_at": "2022-03-03T23:07:32.9922",
+                    "updated_at": "2022-03-03T23:07:32.9922"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "E-mail já está sendo utilizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "error": "string"
+                    },
+                    "example": {
+                      "error": "This email is already in use"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "users/{user_id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get users",
+        "descripton": "Get users list",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": false,
+                    "id": "667cb965-f242-4ec7-ad65-0f6f831fbe91",
+                    "name": "Rocketseat",
+                    "email": "sinonsrt@hotmail.com",
+                    "created_at": "2022-03-03T23:07:32.9922",
+                    "updated_at": "2022-03-03T23:07:32.9922"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "error": "string"
+                    },
+                    "example": {
+                      "error": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "users/{user_id}/admin": {
+      "patch": {
+        "tags": ["users"],
+        "summary": "Get users",
+        "descripton": "Get users list",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": false,
+                    "id": "667cb965-f242-4ec7-ad65-0f6f831fbe91",
+                    "name": "Rocketseat",
+                    "email": "sinonsrt@hotmail.com",
+                    "created_at": "2022-03-03T23:07:32.9922",
+                    "updated_at": "2022-03-03T23:07:32.9922"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "error": "string"
+                    },
+                    "example": {
+                      "error": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
